@@ -13,17 +13,17 @@ def hello():
 def predict():
     if request.method == 'POST':
         SL = request.form['SL']
-        print SL
+        print (SL)
 
         SW = request.form['SW']
-        print SW
+        print (SW)
 
         PL = request.form['PL']
-        print PL
+        print (PL)
 
         PW = request.form['PW']
-        print PW
-        
+        print (PW)
+
         model = pickle.load(open('ir_model.pkl', 'rb'))
         Classification  =  model.predict([[str(Classification)]])
         print(Classification)
