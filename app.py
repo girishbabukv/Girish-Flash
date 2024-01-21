@@ -9,15 +9,25 @@ def hello():
     return render_template('index.html')
 
 
-@app.route('/prediction', methods = ['GET','POST'])
+@app.route('/classification', methods = ['GET','POST'])
 def predict():
     if request.method == 'POST':
-        height = request.form['height']
-        print(height)
-        model = pickle.load(open('model.pkl', 'rb'))
-        weight =  model.predict([[float(height)]])
-        print(weight)
-    return render_template('prediction.html', weight=weight)
+        SL = request.form['SL']
+        print SL
+
+        SW = request.form['SW']
+        print SW
+
+        PL = request.form['PL']
+        print PL
+
+        PW = request.form['PW']
+        print PW
+        
+        model = pickle.load(open('ir_model.pkl', 'rb'))
+        Classification  =  model.predict([[str(Classification)]])
+        print(Classification)
+    return render_template('prediction.html', Classification = Classification)
 
 
 if __name__ == '__main__':
