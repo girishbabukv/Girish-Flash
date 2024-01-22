@@ -1,6 +1,9 @@
 from flask import Flask,render_template,request
 import pickle
+import numpy as np
 
+#Loading the pickle file
+model = pickle.load(open('ir_model.pkl', 'rb'))
 
 app = Flask(__name__)
 
@@ -8,26 +11,22 @@ app = Flask(__name__)
 def hello():
     return render_template('index.html')
 
-
-@app.route('/Classification', methods = ['GET','POST'])
+# Take input value and passing to the predictor
+@app.route('/prediction', methods = ['GET','POST'])
 def predict():
     if request.method == 'POST':
         SL = request.form['SL']
         print (SL)
-
         SW = request.form['SW']
         print (SW)
-
         PL = request.form['PL']
-        print (PL)
-
+        print (SW)
         PW = request.form['PW']
-        print (PW)
-
-        model = pickle.load(open('ir_model.pkl', 'rb'))
-        Classification  =  model.predict([[float(Classification)]])
-        print(Classification)
-    return render_template('prediction.html', Classification = Classification)
+        print (SW)
+        arr = np.array([[SL, SW, PL, PW]])
+        Classification = model.predict(arr)
+        print (Classification)
+    return render_template('prediction.html',Classification = Classification)
 
 
 if __name__ == '__main__':
