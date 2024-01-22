@@ -9,7 +9,7 @@ def hello():
     return render_template('index.html')
 
 
-@app.route('/classification', methods = ['GET','POST'])
+@app.route('/Classification', methods = ['GET','POST'])
 def predict():
     if request.method == 'POST':
         SL = request.form['SL']
@@ -25,7 +25,7 @@ def predict():
         print (PW)
 
         model = pickle.load(open('ir_model.pkl', 'rb'))
-        Classification  =  model.predict([[str(Classification)]])
+        Classification  =  model.predict([[float(Classification)]])
         print(Classification)
     return render_template('prediction.html', Classification = Classification)
 
