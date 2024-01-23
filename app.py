@@ -16,13 +16,13 @@ def hello():
 def predict():
     if request.method == 'POST':
         SL = request.form['SL']
-        print (SL)
+        
         SW = request.form['SW']
-        print (SW)
+        
         PL = request.form['PL']
-        print (SW)
+        
         PW = request.form['PW']
-        print (SW)
+        
         arr = np.array([[SL, SW, PL, PW]])
 
         model = pickle.load(open('ir_model.pkl', 'rb'))
