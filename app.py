@@ -3,7 +3,7 @@ import pickle
 import numpy as np
 
 #Loading the pickle file
-model = pickle.load(open('ir_model.pkl', 'rb'))
+
 
 app = Flask(__name__)
 
@@ -24,6 +24,8 @@ def predict():
         PW = request.form['PW']
         print (SW)
         arr = np.array([[SL, SW, PL, PW]])
+
+        model = pickle.load(open('ir_model.pkl', 'rb'))
         Classification = model.predict(arr)
         print (Classification)
     return render_template('prediction.html',Classification = Classification)
