@@ -3,7 +3,7 @@ import pickle
 import numpy as np
 
 #Loading the pickle file
-
+model = pickle.load(open('ir_model.pkl', 'rb'))
 
 app = Flask(__name__)
 
@@ -11,25 +11,16 @@ app = Flask(__name__)
 def hello():
     return render_template('index.html')
 
-# Take input value and passing to the predictor
-@app.route('/prediction', methods = ['GET','POST'])
-def predict():
-    if request.method == 'POST':
+# Take input values and passing to the predictor
+@app.route('/predict', methods = ['POST'])
+def index():
         SL = request.form['SL']
-        
         SW = request.form['SW']
-        
         PL = request.form['PL']
-        
         PW = request.form['PW']
-        
-        arr = np.array([[SL, SW, PL, PW]])
+        arr = ([[SL, SW, PL, PW]])
+        pred = model.predict(arr)
+        return render_template('result.html', pred=pred)
 
-        model = pickle.load(open('ir_model.pkl', 'rb'))
-        Classification = model.predict(arr)
-        print (Classification)
-    return render_template('prediction.html',Classification = Classification)
-
-
-if __name__ == '__main__':
-    app.run()
+if __name__ == "__main__":
+    app.run(debug=True)
